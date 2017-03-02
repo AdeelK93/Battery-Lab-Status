@@ -1,0 +1,24 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.top-buffer { margin-top:20px; }
+.spacer { height: 50px; }
+
+.time {
+  position: absolute;
+  right: 20px;
+  margin: 0px;
+  letter-spacing: 0px;
+  font-weight: 400;
+  color: rgb(255, 255, 255);
+  line-height: 50px;
+  flex: 1 1 0%;
+}
+@media screen and (max-width: 649px) {
+  .time {
+    visibility: hidden;
+  }
+}
