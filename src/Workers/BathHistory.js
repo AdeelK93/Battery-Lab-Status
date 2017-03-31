@@ -47,7 +47,7 @@ class BathHistoryCard extends React.Component {
     records = records || this.state.records
     dateTime = dateTime || this.state.dateTime
     fetch(
-      '/api/pg/batterylabstatus?select=datetime,pump1,pump2,pump3,pump4,pump5,pump6,pump7,pump8,pump9,heater1,heater2,heater3,heater4,heater5,heater6,heater7,heater8,heater9,temp1,temp2,temp3,temp4,temp5,temp6,temp7,temp8,temp9,h2lab,h2duct,h2upstairs,water1,water2,h2alarm,acvent&order=datetime.desc&limit=' + records + dateTime,
+      'api/pg/batterylabstatus?select=datetime,pump1,pump2,pump3,pump4,pump5,pump6,pump7,pump8,pump9,heater1,heater2,heater3,heater4,heater5,heater6,heater7,heater8,heater9,temp1,temp2,temp3,temp4,temp5,temp6,temp7,temp8,temp9,h2lab,h2duct,h2upstairs,water1,water2,h2alarm,acvent&order=datetime.desc&limit=' + records + dateTime,
       {credentials: 'same-origin'}
     )
     .then(res => res.json())

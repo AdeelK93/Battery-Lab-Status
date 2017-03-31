@@ -73,7 +73,7 @@ class RealTimeAnalysis extends React.Component {
     records = records || this.state.records
     dateTime = dateTime || this.state.dateTime
     fetch(
-      '/api/pg/batterylabstatus?select=bitrode,bitrodeupdated&order=datetime.desc&limit=' + records + dateTime,
+      'api/pg/batterylabstatus?select=bitrode,bitrodeupdated&order=datetime.desc&limit=' + records + dateTime,
       {credentials: 'same-origin'}
     )
     .then(res => res.json())

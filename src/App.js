@@ -32,7 +32,7 @@ class App extends React.Component {
   // This function handles polling for Bitrode/bath/sensor data
   // Pull the 25 most recent records
   pollDatabase() {
-    fetch('/api/pg/batterylabstatus?order=datetime.desc&limit=25', {credentials: 'same-origin'})
+    fetch('api/pg/batterylabstatus?order=datetime.desc&limit=25', {credentials: 'same-origin'})
     .then(res => res.json())
     .then(resjson => {
       // Order the array properly, since the REST query must reverse records

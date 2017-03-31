@@ -2,9 +2,9 @@
   "name": "BatteryLabStatus",
   "author": "Adeel Khan",
   "version": "0.1.0",
-  "homepage": "http://52.43.143.32/BatteryLabStatus/",
-  "private": true,
+  "homepage": "https://adeelk93.github.io/Battery-Lab-Status/",
   "devDependencies": {
+    "gh-pages": "^0.12.0",
     "react-scripts": "0.9.2"
   },
   "dependencies": {
@@ -21,6 +21,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
