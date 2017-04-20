@@ -3,26 +3,23 @@
 import React from 'react';
 import { Location, Locations, NotFound } from 'react-router-component';
 
-import { BitrodeParse } from './Workers/BitrodeHelpers.js';
-import MenuDrawer from './Components/MenuDrawer.js';
-import Dashboard from './Components/Dashboard.js';
-import TabularOverview from './Components/TabularOverview.js';
-import CyclingProgress from './Components/CyclingProgress.js';
-import Temperature from './Components/Temperature.js';
-import WaterBaths from './Components/WaterBaths.js';
-import RealTimeAnalysis from './Components/RealTimeAnalysis.js';
+import { BitrodeParse } from './Workers/BitrodeHelpers';
+import MenuDrawer from './Components/MenuDrawer';
+import Dashboard from './Components/Dashboard';
+import TabularOverview from './Components/TabularOverview';
+import CyclingProgress from './Components/CyclingProgress';
+import Temperature from './Components/Temperature';
+import WaterBaths from './Components/WaterBaths';
+import RealTimeAnalysis from './Components/RealTimeAnalysis';
 // Rate at which the REST is polled
-import { reloadRate } from './Workers/Constants.js';
+import { reloadRate } from './Workers/Constants';
 
 class App extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      labStatus: [],
-      showLabels: 'Circuit Name',
-      groupBy: 'Test'
-    };
-  }
+  state = {
+    labStatus: [],
+    showLabels: 'Circuit Name',
+    groupBy: 'Test'
+  };
   // Load up the external data
   componentWillMount() {
     this.pollDatabase() // do it once and then every 5 minutes
@@ -32,7 +29,7 @@ class App extends React.Component {
   // This function handles polling for Bitrode/bath/sensor data
   // Pull the 25 most recent records
   pollDatabase() {
-    fetch('api/pg/batterylabstatus?order=datetime.desc&limit=25', {credentials: 'same-origin'})
+    fetch('/api/pg/batterylabstatus?order=datetime.desc&limit=25', {credentials: 'same-origin'})
     .then(res => res.json())
     .then(resjson => {
       // Order the array properly, since the REST query must reverse records

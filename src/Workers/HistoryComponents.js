@@ -14,27 +14,22 @@ import isEqual from 'lodash.isequal';
 import chroma from 'chroma-js';
 
 // Reusable element for selecting the number of records to query
-const RecordsDropdownList = props => {
-  return(
-    <SelectField
-      floatingLabelText='Previous records to fetch' value={props.value}
-      onChange={props.onChange} >
-      <MenuItem value={10} primaryText='10' />
-      <MenuItem value={25} primaryText='25' />
-      <MenuItem value={50} primaryText='50' />
-      <MenuItem value={100} primaryText='100' />
-      <MenuItem value={250} primaryText='250' />
-      <MenuItem value={500} primaryText='500' />
-    </SelectField>
-  )
-}
+const RecordsDropdownList = props => (
+  <SelectField
+    floatingLabelText='Previous records to fetch' value={props.value}
+    onChange={props.onChange} >
+    <MenuItem value={10} primaryText='10' />
+    <MenuItem value={25} primaryText='25' />
+    <MenuItem value={50} primaryText='50' />
+    <MenuItem value={100} primaryText='100' />
+    <MenuItem value={250} primaryText='250' />
+    <MenuItem value={500} primaryText='500' />
+  </SelectField>
+)
 
 // Reusable element for requerying the data and optionally travelling back in time
 class DateTimeRow extends React.Component {
-  constructor() {
-    super();
-    this.state = { date: null, time: null };
-  }
+  state = { date: null, time: null };
 
   // Handle date and time updates
   handleDate = (event, date) => {
@@ -82,10 +77,7 @@ class DateTimeRow extends React.Component {
 
 // Chart.js Line container that has more intelligent redrawing logic
 class LineChart extends React.Component {
-  constructor() {
-    super();
-    this.state = { redraw: false };
-  }
+  state = { redraw: false };
   // Check if the options have changed (such as the y-axis label)
   // Redraw everything if it has
   componentWillReceiveProps(nextProps) {

@@ -31,15 +31,20 @@ const AlarmCard = props => {
     alarms.push(ACAlarm('acvent'))
   }
   // Notify if any pumps are offline
-  props.bathList.forEach(bath => {
-    if (!props.data['pump' + bath]) {
-      //alarms.push(PumpAlarm(bath))
-    }
-  });
+  // props.bathList.forEach(bath => {
+  //   if (!props.data['pump' + bath]) {
+  //     alarms.push(PumpAlarm(bath))
+  //   }
+  // });
   // Notify if any Bitrode circuits are throwing a fault
   props.data.bitrode
-  .filter(o => o.Mode!=='CHRG' && o.Mode!=='DCHG' && o.Mode!=='REST' && o.Mode!=='DONE')
+  .filter(o => o.Mode!=='CHRG' && o.Mode!=='DCHG' && o.Mode!=='REST' && o.Mode!=='DONE' && o.Circuit!=='M1')
   .forEach(i => alarms.push(BitrodeFault(i.Circuit)))
+
+  // Notify if any Bitrode circuits are throwing a fault
+  props.data.bitrode
+  .filter(o => o.Voltage <-1)
+  .forEach(i => alarms.push(ReversePolarity(i.Circuit,i['Battery ID'])))
 
   // No alarms, return all good response
   if (alarms.length===0) {
@@ -77,17 +82,24 @@ function ACAlarm(ac) {
     </b></p>
   )
 }
-function PumpAlarm(pump) {
-  return (
-    <p style={{color: green500}} key={pump}>
-      Pump {pump} is offline
-    </p>
-  )
-}
+// function PumpAlarm(pump) {
+//   return (
+//     <p style={{color: green500}} key={pump}>
+//       Pump {pump} is offline
+//     </p>
+//   )
+// }
 function BitrodeFault(circuit) {
   return (
     <p style={{color: purple500}} key={circuit}>
       Bitrode circuit {circuit} is throwing a fault
+    </p>
+  )
+}
+function ReversePolarity(circuit,battery) {
+  return (
+    <p style={{color: red500}} key={circuit}>
+      Battery {circuit} {battery} has negative voltage
     </p>
   )
 }

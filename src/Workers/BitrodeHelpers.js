@@ -1,12 +1,26 @@
 // Functions to aid with importing and charting Bitrode cycling data
-import { onlyUnique } from './Charts.js';
-import { hclColors } from './HistoryComponents.js';
+import { onlyUnique } from './Charts';
+import { hclColors } from './HistoryComponents';
+
+// Replace the short Bitrode name with the full color name
+const BitrodeName = {
+  M: 'Midnight',
+  P: 'Pink',
+  S: 'Silver',
+  R: 'Red',
+  O: 'Orange',
+  Y: 'Yellow',
+  G: 'Green',
+  B: 'Blue',
+  W: 'White',
+  F: 'Fuchsia'
+}
 
 // Add extra derivative columns to the Bitrode dataset to help with organization
 function BitrodeParse(resjson) {
   resjson.bitrode.map(circuit => {
     const splitName = circuit['Circuit Name'].split(' ', 4);
-    circuit.Bitrode = BitrodeNameSwitch(circuit['Circuit Name'][0]);
+    circuit.Bitrode = BitrodeName[circuit['Circuit Name'][0]] || circuit['Circuit Name'][0];
     circuit.Circuit = splitName[0];
     // Batteries that are both disconnected and are done are not under test
     circuit.Test = circuit.Voltage>0.1 || circuit.Mode!=='DONE' ?
@@ -53,24 +67,6 @@ function BitrodeColorLine(filtered) {
     }
   })
   return colorLine
-}
-
-// Replace the short Bitrode name with the full color name
-function BitrodeNameSwitch(name) {
-  switch (name) {
-    case 'M': return 'Midnight'
-    case 'P': return 'Pink'
-    case 'S': return 'Silver'
-    case 'R': return 'Red'
-    case 'O': return 'Orange'
-    case 'Y': return 'Yellow'
-    case 'G': return 'Green'
-    case 'B': return 'Blue'
-    case 'W': return 'White'
-    case 'F': return 'Fuchsia'
-    // Cannot derive the proper color name?
-    default: return name
-  }
 }
 
 export { BitrodeParse, BitrodeColorLine };

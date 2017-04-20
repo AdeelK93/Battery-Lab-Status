@@ -2,7 +2,7 @@
 // The clock is hidden on mobile devices
 
 import React from 'react';
-import Material from '../MaterialTheme.js';
+import Material from '../MaterialTheme';
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
@@ -21,14 +21,11 @@ import Check from 'material-ui/svg-icons/navigation/check';
 import Close from 'material-ui/svg-icons/navigation/close';
 
 class MenuDrawer extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      menuOpen: false,
-      showLabels: true,
-      groupByTest: true
-    };
-  }
+  state = {
+    menuOpen: false,
+    showLabels: true,
+    groupByTest: true
+  };
 
   handleToggle = () => this.setState({menuOpen: !this.state.menuOpen});
   navigate(location) {
@@ -50,7 +47,7 @@ class MenuDrawer extends React.Component {
   componentDidMount() {
      window.setInterval(() =>
       this.setState({date: new Date()})
-    , 1000); // 1s polling may be too frequent?
+    , 10000); // 10s polling may be too frequent?
   }
 
   render() {

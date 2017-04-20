@@ -4,25 +4,25 @@
 import React from 'react';
 import MenuItem from 'material-ui/MenuItem';
 import { Card, CardHeader, CardMedia } from 'material-ui/Card';
-import { onlyUnique } from './Charts.js';
-import { BitrodeColorLine } from './BitrodeHelpers.js';
-import { LineChart, hclColors } from './HistoryComponents.js';
+import { onlyUnique } from './Charts';
+import { BitrodeColorLine } from './BitrodeHelpers';
+import { LineChart, hclColors } from './HistoryComponents';
 import dateFormat from 'dateformat';
-import { variance } from './Statistics.js';
+import { variance } from './Statistics';
 
 // Array of line dashes that I think look nice (CanvasRenderingContext2D.setLineDash())
 const lineDashes = [[0],[0,4,4],[0,1,2],[0,1,2,3],[0,1,2,3,4],[0,1,2,3,4,5]];
 
 // List of circuits to display in the graph
-function BitrodeDropdownList(data, groupBy) {
-  return data[data.length-1].bitrode // Latest record
+const BitrodeDropdownList = (data, groupBy) => (
+  data[data.length-1].bitrode // Latest record
   .map(record => record[groupBy])
   .filter(arr => arr!==undefined)
   .filter(onlyUnique)
   .map(group => <MenuItem value={group} primaryText={group} key={group} />)
-}
+)
 
-// Filter down a key to a value, and then return a chart.js friendly dataset
+// Filter down a key to a value, and then return a chart friendly dataset
 function ChartjsBitrodeHistory(obj, key, val, labs, yAxis, hideDate) {
   const filtered = obj.map(record => record.bitrode.filter(o => o[key]===val));
   // Points overwhelm the line dashes if there are more than 50 points

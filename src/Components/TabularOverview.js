@@ -5,36 +5,31 @@
 import React from 'react';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 import '../css/bootstrap.min.css';
-import Material from '../MaterialTheme.js';
+import Material from '../MaterialTheme';
 import Checkbox from 'material-ui/Checkbox';
 import TextField from 'material-ui/TextField';
-import { LastUpdatedFooter } from '../Workers/Charts.js';
+import { LastUpdatedFooter } from '../Workers/Charts';
 
 const columns = [
-  /*'Bitrode',*/ 'Circuit', 'Battery ID',
+  /*'Bitrode',*/ 'Circuit', 'Battery ID', 'Test',
   'Mode', 'Total Time', 'Cycle',
   'Step', 'Step time', 'Current',
   'Voltage', 'Amp-Hours', 'Assignable Variable 1'
 ]
 
 // Generate each row using map
-const Row = props => {
-  return (
-    <TableRow hoverable={true}>
-      {columns.map(column => <TableRowColumn key={column}> {props.row[column]} </TableRowColumn>)}
-    </TableRow>
-  )
-}
+const Row = props => (
+  <TableRow hoverable={true}>
+    {columns.map(column => <TableRowColumn key={column}> {props.row[column]} </TableRowColumn>)}
+  </TableRow>
+)
 
 class TabularOverview extends React.Component {
-  constructor() {
-    super();
-    this.state = {showActive: true, showFree: true, search: ''};
-  }
+  state = {showActive: true, showFree: true, search: ''};
 
   handleActive = () => this.setState({showActive: !this.state.showActive});
   handleFree = () => this.setState({showFree: !this.state.showFree});
-  handleSearch = (event,search) => this.setState({search});
+  handleSearch = (event, search) => this.setState({search});
 
   render() {
     // Dataset is empty, wait for promise to be fulfilled
@@ -48,10 +43,10 @@ class TabularOverview extends React.Component {
       <Material className='container-fluid'>
         <div className='row'>
           <div className='col-sm-4 top-buffer'>
-            <Checkbox label='Active Circuits' defaultChecked={true} onCheck={this.handleActive} />
+            <Checkbox label='Active Circuits' defaultChecked onCheck={this.handleActive} />
           </div>
           <div className='col-sm-4 top-buffer'>
-            <Checkbox label='Free Circuits' defaultChecked={true} onCheck={this.handleFree} />
+            <Checkbox label='Free Circuits' defaultChecked onCheck={this.handleFree} />
           </div>
           <div className='col-sm-4'>
             <TextField floatingLabelText='Search' onChange={this.handleSearch} />

@@ -2,8 +2,8 @@
 // Can easily be reused to display data as a function of test, rather than Bitrode
 
 import React from 'react';
-import Material from '../MaterialTheme.js';
-import { TemperatureCard, onlyUnique, LastUpdatedFooter } from '../Workers/Charts.js';
+import Material from '../MaterialTheme';
+import { TemperatureCard, onlyUnique, LastUpdatedFooter } from '../Workers/Charts';
 
 class Temperature extends React.Component {
   render() {

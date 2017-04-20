@@ -15,13 +15,20 @@ import React from 'react';
 import { Card, CardHeader, CardMedia } from 'material-ui/Card';
 import { Bar, Doughnut } from 'react-chartjs-2';
 import dateFormat from 'dateformat';
-import { bathList } from './Constants.js';
+import { bathList } from './Constants';
 
 const red = 'rgba(255, 99, 132, 0.3)';
 const yellow = 'rgba(255, 206, 86, 0.3)';
 const green = 'rgba(75, 192, 192, 0.3)';
 const blue = 'rgba(54, 162, 235, 0.3)';
 const purple = 'rgba(153, 102, 255, 0.3)';
+
+const ColorMode = {
+  CHRG: green,
+  DCHG: red,
+  REST: yellow,
+  DONE: blue
+}
 
 const CyclingCard = props => {
   // Dataset is empty, return no card
@@ -123,7 +130,7 @@ function ChartjsCycling(obj, key, val, labs) {
   return {
     labels: filtered.map(o => o[key==='Bitrode' ? labs : 'Battery ID']),
     datasets: [{
-      backgroundColor: filtered.map(o => ColorModeSwitch(o.Mode)),
+      backgroundColor: filtered.map(o => ColorMode[o.Mode] || purple),
       data: filtered.map(o => o.Cycle)
     }]
   }
@@ -178,28 +185,15 @@ function ChartjsPie(obj, key, val) {
   }
 }
 
-function ColorModeSwitch(mode) {
-  switch (mode) {
-    case 'CHRG': return green
-    case 'DCHG': return red
-    case 'REST': return yellow
-    case 'DONE': return blue
-    // Bitrode has thrown a fault
-    default: return purple
-  }
-}
-
 // Returns unique values from an array
 function onlyUnique(value, index, self) {
     return self.indexOf(value) === index;
 }
 
-const LastUpdatedFooter = props => {
-  return (
-    <p className='top-buffer'>
-      Last updated {dateFormat(props.updated, 'UTC:m/d/yyyy h:MM:ss TT')}
-    </p>
-  )
-}
+const LastUpdatedFooter = props => (
+  <p className='top-buffer'>
+    Last updated {dateFormat(props.updated, 'UTC:m/d/yyyy h:MM:ss TT')}
+  </p>
+)
 
 export { CyclingCard, TemperatureCard, BathCard, PieCard, onlyUnique, LastUpdatedFooter };

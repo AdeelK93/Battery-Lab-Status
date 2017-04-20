@@ -4,22 +4,19 @@
 
 import React from 'react';
 import LinearProgress from 'material-ui/LinearProgress';
-import Material from '../MaterialTheme.js';
-import AlarmCard from '../Workers/Alarms.js';
-import { BathCard, CyclingCard, PieCard, onlyUnique } from '../Workers/Charts.js';
-import { BitrodeHistoryCard } from '../Workers/BitrodeHistory.js';
-import { bathList } from '../Workers/Constants.js';
+import Material from '../MaterialTheme';
+import AlarmCard from '../Workers/Alarms';
+import { BathCard, CyclingCard, PieCard, onlyUnique } from '../Workers/Charts';
+import { BitrodeHistoryCard } from '../Workers/BitrodeHistory';
+import { bathList } from '../Workers/Constants';
 // Rate at which the charts are cycled through
 const cycleRate = 6000;
 
 class Dashboard extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      currentGroup: '',
-      indexGroup: 1
-    };
-  }
+  state = {
+    currentGroup: '',
+    indexGroup: 1
+  };
 
   // Begin the timer when the component mounts
   componentDidMount() {
@@ -89,10 +86,7 @@ class Dashboard extends React.Component {
 }
 
 class CycleProgress extends React.Component {
-  constructor() {
-    super();
-    this.state = {completed: 0};
-  }
+  state = {completed: 0};
 
   // Start the timer for the progress meter
   componentDidMount() {

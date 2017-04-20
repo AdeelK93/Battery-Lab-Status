@@ -2,14 +2,14 @@
 // The selected number of records is passed onto the REST api
 
 import React from 'react';
-import Material from '../MaterialTheme.js';
+import Material from '../MaterialTheme';
 import { Card, CardHeader, CardMedia } from 'material-ui/Card';
 import MenuItem from 'material-ui/MenuItem';
 import SelectField from 'material-ui/SelectField';
-import { BitrodeDropdownList, ChartjsBitrodeHistory } from '../Workers/BitrodeHistory.js';
-import { RecordsDropdownList, DateTimeRow, LineChart } from '../Workers/HistoryComponents.js';
-import { BitrodeParse } from '../Workers/BitrodeHelpers.js';
-import { reloadRate } from '../Workers/Constants.js';
+import { BitrodeDropdownList, ChartjsBitrodeHistory } from '../Workers/BitrodeHistory';
+import { RecordsDropdownList, DateTimeRow, LineChart } from '../Workers/HistoryComponents';
+import { BitrodeParse } from '../Workers/BitrodeHelpers';
+import { reloadRate } from '../Workers/Constants';
 
 class RealTimeAnalysis extends React.Component {
   constructor(props) {
@@ -17,7 +17,7 @@ class RealTimeAnalysis extends React.Component {
     this.state = {
       records: 25,
       yaxis: 'Voltage',
-      bitrodeData: this.props.labHistory || [],
+      bitrodeData: props.labHistory || [],
       dateTime: ''
     };
   }
@@ -73,7 +73,7 @@ class RealTimeAnalysis extends React.Component {
     records = records || this.state.records
     dateTime = dateTime || this.state.dateTime
     fetch(
-      'api/pg/batterylabstatus?select=bitrode,bitrodeupdated&order=datetime.desc&limit=' + records + dateTime,
+      '/api/pg/batterylabstatus?select=bitrode,bitrodeupdated&order=datetime.desc&limit=' + records + dateTime,
       {credentials: 'same-origin'}
     )
     .then(res => res.json())
